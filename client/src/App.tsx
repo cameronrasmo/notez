@@ -1,11 +1,18 @@
-import React from 'react';
+import React from "react";
+// Components
+import Background from "./components/Background";
+// Styles
+import { Global } from "./App.styles";
 
-function App() {
-  return (
-    <div className="App">
-      
-    </div>
-  );
-}
+const App = () => {
+    return (
+        <>
+            <Global />
+            <Background>
+                <div>yes</div>
+            </Background>
+        </>
+    );
+};
 
 export default App;
