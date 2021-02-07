@@ -1,7 +1,7 @@
 import styled, { createGlobalStyle } from "styled-components";
 
 export const Colors = {
-    black: "#111111",
+    black: "#0c0c0c",
     white: "#F2F2F2",
     grey: "#222222",
     purple: "#BA48EF",
@@ -14,6 +14,7 @@ export const Global = createGlobalStyle`
         padding: 0px;
         margin: 0px;
         box-sizing: border-box;
+        font-family: Roboto;
     }
 
     body {
@@ -23,5 +24,8 @@ export const Global = createGlobalStyle`
     .background {
         width: 100vw;
         height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 `;
