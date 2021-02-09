@@ -11,14 +11,7 @@ interface Props {
     delay?: string | undefined;
 }
 
-const colors = [
-    Colors.purple,
-    Colors.teal,
-    Colors.orange,
-    Colors.purple,
-    Colors.teal,
-    Colors.orange,
-];
+const colors = [Colors.teal, Colors.teal, Colors.orange, Colors.purple];
 
 const OrbRender: React.FC<Props> = ({ color }) => {
     const config = {
@@ -45,7 +38,7 @@ const OrbRender: React.FC<Props> = ({ color }) => {
 
     useEffect(() => {
         if (orbRef.current) {
-            orbRef.current.style.opacity = "0.05";
+            orbRef.current.style.opacity = "0.3";
         }
     }, []);
 
@@ -65,11 +58,19 @@ const OrbRender: React.FC<Props> = ({ color }) => {
 };
 
 const Orbs = () => {
+    const orbRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (orbRef.current) {
+            orbRef.current.style.opacity = "0.3";
+        }
+    }, []);
     return (
         <>
             {colors.map(color => (
                 <OrbRender color={color} />
             ))}
+            <Orb ref={orbRef} color={Colors.teal} bottom='0px' right='0px' />
         </>
     );
 };
@@ -77,38 +78,27 @@ const Orbs = () => {
 const transform = keyframes`
     0% {
         transform: translate(0px, 0px), scale(1);
-        filter: blur(550px);
-        opacity: .09;
     }
     25% {
         transform: translate(150px, 30px), scale(1.2);
-        filter: blur(450px);
-        opacity: .02;
     }
     50% {
         transform: translate(-30px, -40px), scale(0.8);
-        filter: blur(400px);
-        opacity: .08;
     }
     75% {
         transform: translate(25px, 10px), scale(0.6);
-        filter: blur(550px);
-        opacity: .06;
     }
     100% {
         transform: translate(0px, 10px), scale(1);
-        filter: blur(550px);
-        opacity: .07;
     }
 `;
 
 const Orb = styled.div`
-    width: 500px;
-    height: 500px;
+    width: 300px;
+    height: 300px;
     border-radius: 500px;
 
     background-color: ${(props: Props) => props.color};
-    /* background-color: transparent; */
 
     position: absolute;
     top: ${(props: Props) => props.top};
@@ -120,12 +110,14 @@ const Orb = styled.div`
 
     opacity: 0;
 
-    filter: blur(500px);
+    filter: blur(150px);
 
-    /* animation: 20s ${transform} infinite alternate; */
+    animation: 20s ${transform} infinite alternate;
     animation-delay: ${(props: Props) => props.delay};
 
-    transition: 10s;
+    z-index: -2;
+
+    transition: 1s;
 `;
 
 export default Orbs;
