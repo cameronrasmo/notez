@@ -9,11 +9,12 @@ interface Props {
     right?: string | null;
     color?: string;
     delay?: string | undefined;
+    idx: number | undefined;
 }
 
 const colors = [Colors.teal, Colors.teal, Colors.orange, Colors.purple];
 
-const OrbRender: React.FC<Props> = ({ color }) => {
+const OrbRender: React.FC<Props> = ({ color, idx }) => {
     const config = {
         top:
             Math.random() > 0.5
@@ -45,6 +46,7 @@ const OrbRender: React.FC<Props> = ({ color }) => {
     return (
         <div>
             <Orb
+                idx={idx}
                 ref={orbRef}
                 color={color}
                 top={config.top}
@@ -67,10 +69,16 @@ const Orbs = () => {
     }, []);
     return (
         <>
-            {colors.map(color => (
-                <OrbRender color={color} />
+            {colors.map((color, idx) => (
+                <OrbRender idx={idx} color={color} />
             ))}
-            <Orb ref={orbRef} color={Colors.teal} bottom='0px' right='0px' />
+            <Orb
+                idx={4}
+                ref={orbRef}
+                color={Colors.teal}
+                bottom='0px'
+                right='0px'
+            />
         </>
     );
 };
@@ -117,7 +125,8 @@ const Orb = styled.div`
 
     z-index: -2;
 
-    transition: 1s;
+    transition: 3s;
+    transition-delay: ${(props: Props) => `${props.idx}s`};
 `;
 
 export default Orbs;

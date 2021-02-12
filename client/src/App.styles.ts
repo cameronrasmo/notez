@@ -9,20 +9,30 @@ export const Colors = {
     orange: "#EF4848",
 };
 
+interface Props {
+    theme: string;
+}
+
 export const Global = createGlobalStyle`
     * {
         padding: 0px;
         margin: 0px;
         box-sizing: border-box;
         font-family: Roboto;
-        color: ${Colors.white}
     }
 
     body {
-        background-color: ${Colors.black};
         width: 100vw;
         height: 100vh;
-        overflow: scroll;
+        overflow: hidden;
+        background-color: ${(props: Props) =>
+            props.theme === "light" ? Colors.white : Colors.black};
+        color: ${(props: Props) =>
+            props.theme === "light" ? Colors.black : Colors.white}
+    }
+
+    button, input, i {
+        transition-timing-function: cubic-bezier(0, 0, 0.5, 1);
     }
 
     .background {
@@ -32,6 +42,7 @@ export const Global = createGlobalStyle`
         align-items: center;
         justify-content: center;
         flex-direction: row;
+        z-index: -1;
 
         h1 {
             font-weight: 400;

@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Colors } from "../App.styles";
-import Logo from "../images/Notez.png";
+import LogoLight from "../images/logoLight.png";
+import LogoDark from "../images/logoDark.png";
 
 const Auth: React.FC = () => {
     return (
@@ -22,20 +23,20 @@ const Auth: React.FC = () => {
                 </AuthContainer>
             </Container>
             <Container>
-                <Image src={Logo} />
+                <Image src={LogoDark} />
             </Container>
         </>
     );
 };
 
 const Image = styled.img`
-    font-size: 20rem;
-    font-weight: 800;
+    height: 90%;
     position: absolute;
     right: 0px;
     bottom: 0px;
     line-height: 1;
     color: ${Colors.black};
+    z-index: -1;
 `;
 
 const AuthContainer = styled.div``;
