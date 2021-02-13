@@ -22,9 +22,6 @@ export const Global = createGlobalStyle`
     }
 
     body {
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
         background-color: ${(props: Props) =>
             props.theme === "light" ? Colors.white : Colors.black};
         color: ${(props: Props) =>
@@ -36,17 +33,27 @@ export const Global = createGlobalStyle`
     }
 
     .background {
+        position: absolute;
+        top: 0px;
+        left: 0px;
         width: 100%;
-        height: 100vh;
+        height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: row;
         z-index: -1;
+        overflow: hidden;
 
         h1 {
             font-weight: 400;
             font-size: 22px;
+        }
+    }
+
+    @media(max-width: 600px){
+        .background {
+            overflow: scroll;
         }
     }
 `;
