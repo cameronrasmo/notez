@@ -5,7 +5,7 @@ import Background from "./components/Background";
 import { SystemContext } from "./ctx/SystemProvider";
 // Styles
 import { Global } from "./App.styles";
-import Auth from "./components/Auth";
+import Auth from "./components/auth/Auth";
 
 const App = () => {
     const { theme } = useContext(SystemContext);

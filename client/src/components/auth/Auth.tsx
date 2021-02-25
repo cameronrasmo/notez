@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import styled, { keyframes } from "styled-components";
-import { Colors } from "../App.styles";
-import LogoLight from "../images/logoLight.png";
-import LogoDark from "../images/logoDark.png";
-import { SystemContext } from "../ctx/SystemProvider";
+import { Colors } from "../../App.styles";
+import LogoLight from "../../images/logoLight.png";
+import LogoDark from "../../images/logoDark.png";
+import { SystemContext } from "../../ctx/SystemProvider";
 
 interface Props {
     theme: string;
@@ -16,6 +16,7 @@ interface IFormState {
 
 const Auth: React.FC = () => {
     const { theme } = useContext(SystemContext);
+    const [authType, setAuthType] = useState<string>("signup");
     const [formState, setFormState] = useState<IFormState>({
         username: "",
         password: "",
