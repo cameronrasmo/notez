@@ -1,20 +1,12 @@
-import React, {
-    Dispatch,
-    SetStateAction,
-    createContext,
-    useState,
-} from "react";
+import React, { createContext, useState } from "react";
+import { ISysCtxValue } from "./interfaces/ISystem";
 
-interface SPState {
-    theme: string;
-    setTheme?: Dispatch<SetStateAction<string>>;
-}
-
-const InitState: SPState = {
+const InitState: ISysCtxValue = {
     theme: "light",
+    setTheme: t => t,
 };
 
-export const SystemContext = createContext<SPState>(InitState);
+export const SystemContext = createContext<ISysCtxValue>(InitState);
 
 export const SystemProvider: React.FC<{ children: React.ReactNode }> = ({
     children,

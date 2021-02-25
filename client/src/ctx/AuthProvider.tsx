@@ -1,20 +1,22 @@
-import React, { createContext } from "react";
+import React, { createContext, useEffect, useState } from "react";
+import axios from "axios";
+// Interfaces
+import { IAuthCtxValue, IAuthUser } from "./interfaces/IAuth";
 
-interface APState {
-    user: {};
-    token: {};
-}
-
-const InitState = {
-    user: {},
-    token: {},
-};
-
-export const AuthContext = createContext<APState>(InitState);
+export const AuthContext = createContext<Partial<IAuthCtxValue>>({});
 
 export const AuthProvider: React.FC = ({ children }) => {
+    const [userState, setUserState] = useState<IAuthUser>({
+        user: {},
+        token: {},
+    });
+
+    const signIn = (un: string = "", pw: string = "") => {
+        return "yes";
+    };
+
     return (
-        <AuthContext.Provider value={{ user: {}, token: {} }}>
+        <AuthContext.Provider value={{ userState, setUserState, signIn }}>
             {children}
         </AuthContext.Provider>
     );

@@ -9,14 +9,25 @@ interface Props {
     theme: string;
 }
 
-interface FormState {
+interface IFormState {
     username: string;
     password: string;
 }
 
 const Auth: React.FC = () => {
     const { theme } = useContext(SystemContext);
-    const [authState, setAuthState] = useState<FormState>();
+    const [formState, setFormState] = useState<IFormState>({
+        username: "",
+        password: "",
+    });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        const { name, value } = e.target;
+        setFormState(prev => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
 
     return (
         <>
@@ -26,8 +37,20 @@ const Auth: React.FC = () => {
                         Because you totally asked for another note taking app.
                     </h1>
                     <div style={{ display: "flex" }}>
-                        <input placeholder='Username' />
-                        <input placeholder='Password' />
+                        <input
+                            name='username'
+                            type='text'
+                            placeholder='Username'
+                            value={formState.username}
+                            onChange={handleChange}
+                        />
+                        <input
+                            name='password'
+                            type='password'
+                            placeholder='Password'
+                            value={formState.password}
+                            onChange={handleChange}
+                        />
                         <button>
                             Log in{" "}
                             <i className='material-icons'>arrow_forward</i>
