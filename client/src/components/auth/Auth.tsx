@@ -1,17 +1,15 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { Image, Container, AuthContainer, LogoContainer } from "./authStyles";
+import { FlexRow } from "../reusableStyles";
 import LogoLight from "../../images/logoLight.png";
 import LogoDark from "../../images/logoDark.png";
 import { SystemContext } from "../../ctx/SystemProvider";
+import AuthButton from "./AuthButton";
+import { AuthTypes } from "../../interfaces/IAuth";
 
 interface IFormState {
     username: string;
     password: string;
-}
-
-enum authTypes {
-    SIGNUP = "signup",
-    LOGIN = "login",
 }
 
 const Auth: React.FC = () => {
@@ -30,15 +28,22 @@ const Auth: React.FC = () => {
         }));
     };
 
+    const setAuth = (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ): void => {
+        const { name } = e.target as HTMLButtonElement;
+        setAuthType(name);
+    };
+
     return (
         <>
             <Container>
-                <AuthContainer theme={theme}>
+                <AuthContainer theme={theme} authType={authType}>
                     <h1>
                         Because you totally asked for another note taking app.
                     </h1>
                     {authType ? (
-                        <div style={{ display: "flex" }}>
+                        <FlexRow style={{ display: "flex" }}>
                             <input
                                 name='username'
                                 type='text'
@@ -53,13 +58,21 @@ const Auth: React.FC = () => {
                                 value={formState.password}
                                 onChange={handleChange}
                             />
-                            <button>
-                                {authType === "signup" ? "Sign up" : "Log in"}{" "}
-                                <i className='material-icons'>arrow_forward</i>
-                            </button>
-                        </div>
+                            <AuthButton authType={authType} />
+                        </FlexRow>
                     ) : (
-                        <div></div>
+                        <FlexRow
+                            style={{
+                                margin: "10px 0px",
+                                padding: "5px 0px",
+                            }}>
+                            <button name={AuthTypes.LOGIN} onClick={setAuth}>
+                                Log in
+                            </button>
+                            <button name={AuthTypes.SIGNUP} onClick={setAuth}>
+                                Sign up
+                            </button>
+                        </FlexRow>
                     )}
                 </AuthContainer>
             </Container>

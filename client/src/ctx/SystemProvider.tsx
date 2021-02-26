@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import { ISysCtxValue } from "./interfaces/ISystem";
+import { ISysCtxValue } from "../interfaces/ISystem";
 
 const InitState: ISysCtxValue = {
     theme: "light",

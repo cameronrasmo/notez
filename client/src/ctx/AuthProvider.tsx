@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
 // Interfaces
-import { IAuthCtxValue, IAuthUser } from "./interfaces/IAuth";
+import { IAuthCtxValue, IAuthUser } from "../interfaces/IAuth";
 
 export const AuthContext = createContext<Partial<IAuthCtxValue>>({});
 

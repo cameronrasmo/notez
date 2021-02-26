@@ -3,6 +3,7 @@ import { Colors } from "../../App.styles";
 
 interface StyledProps {
     theme: string;
+    authType: string | null;
 }
 
 export const introAnimation = keyframes`
@@ -100,8 +101,16 @@ export const AuthContainer = styled(Container)`
         transition: 0.2s;
 
         animation: 0.6s ${introAnimation} forwards;
-        animation-delay: 2s;
+
         animation-timing-function: cubic-bezier(0, 0, 0.1, 1);
+
+        &:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        &:nth-child(2) {
+            animation-delay: 0.1s;
+        }
 
         &:focus {
             border-bottom: 2px solid ${Colors.white};
@@ -124,6 +133,7 @@ export const AuthContainer = styled(Container)`
         background-color: transparent;
         outline: none;
         border: none;
+        border-bottom: 2px solid transparent;
         color: ${(props: StyledProps) =>
             props.theme === "light"
                 ? `${Colors.black}b3`
@@ -140,8 +150,17 @@ export const AuthContainer = styled(Container)`
         transition: 0.2s;
 
         animation: 0.6s ${introAnimation} forwards;
-        animation-delay: 2.1s;
         animation-timing-function: cubic-bezier(0, 0, 0.1, 1);
+
+        &:nth-child(1) {
+            animation-delay: ${(props: StyledProps) =>
+                props.authType ? "0.4s" : "2s"};
+        }
+
+        &:nth-child(2) {
+            animation-delay: ${(props: StyledProps) =>
+                props.authType ? "0.4s" : "1.9s"};
+        }
 
         i {
             left: 0px;
@@ -175,6 +194,10 @@ export const AuthContainer = styled(Container)`
     @media (max-width: 600px) {
         div {
             flex-direction: column;
+        }
+        input {
+            width: 100%;
+            margin-right: 0px;
         }
     }
 `;
