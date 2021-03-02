@@ -58,7 +58,10 @@ const Auth: React.FC = () => {
                                 value={formState.password}
                                 onChange={handleChange}
                             />
-                            <AuthButton authType={authType} />
+                            <AuthButton
+                                authType={authType}
+                                formState={formState}
+                            />
                         </FlexRow>
                     ) : (
                         <FlexRow

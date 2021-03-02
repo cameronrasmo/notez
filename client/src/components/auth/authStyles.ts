@@ -124,11 +124,10 @@ export const AuthContainer = styled(Container)`
     button {
         margin-left: auto;
         min-width: 75px;
-
-        flex: 0.5;
+        flex: 1;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-end;
 
         background-color: transparent;
         outline: none;
@@ -162,9 +161,11 @@ export const AuthContainer = styled(Container)`
                 props.authType ? "0.4s" : "1.9s"};
         }
 
-        i {
+        i,
+        img {
             left: 0px;
             position: relative;
+            margin-left: 10px;
 
             color: ${(props: StyledProps) =>
                 props.theme === "light"
@@ -180,7 +181,8 @@ export const AuthContainer = styled(Container)`
                     ? `${Colors.black}`
                     : `${Colors.white}`};
 
-            i {
+            i,
+            img {
                 left: 5px;
                 color: ${(props: StyledProps) =>
                     props.theme === "light"
