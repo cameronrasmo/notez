@@ -1,9 +1,14 @@
 import styled, { keyframes } from "styled-components";
 import { Colors } from "../../App.styles";
+import { AuthStatus } from "../../interfaces/IAuth";
 
 interface StyledProps {
     theme: string;
     authType: string | null;
+    authStatus?: {
+        type: AuthStatus;
+        errMsg: string | null;
+    };
 }
 
 export const introAnimation = keyframes`
@@ -80,7 +85,9 @@ export const AuthContainer = styled(Container)`
         border: none;
         border-bottom: 2px solid
             ${(props: StyledProps) =>
-                props.theme === "light"
+                props.authStatus?.errMsg === "Fields Required"
+                    ? "red"
+                    : props.theme === "light"
                     ? `${Colors.black}b3`
                     : `${Colors.white}b3`};
         border-radius: 0px;
@@ -88,7 +95,8 @@ export const AuthContainer = styled(Container)`
 
         margin: 10px 0px;
         padding: 5px 0px;
-        margin-right: 20px;
+        width: 35%;
+        margin-right: 10px;
         outline: none;
         opacity: 0;
         left: 0px;
@@ -193,9 +201,13 @@ export const AuthContainer = styled(Container)`
     }
     transition: 0.2s;
 
-    @media (max-width: 600px) {
+    @media (max-width: 1000px) {
         div {
             flex-direction: column;
+        }
+        button {
+            margin: 10px 0px;
+            margin-left: auto;
         }
         input {
             width: 100%;

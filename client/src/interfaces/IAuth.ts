@@ -7,7 +7,10 @@ export interface IAuthCtxValue {
     signIn: (un: string, pw: string) => void;
     loading: boolean;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-    authStatus: string;
+    authStatus: { type: AuthStatus; errMsg: string | null };
+    setAuthStatus: React.Dispatch<
+        React.SetStateAction<{ type: AuthStatus; errMsg: string | null }>
+    >;
 }
 // AuthUser
 export interface IAuthUser {

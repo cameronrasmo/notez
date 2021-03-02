@@ -4,8 +4,9 @@ import { FlexRow } from "../reusableStyles";
 import LogoLight from "../../images/logoLight.png";
 import LogoDark from "../../images/logoDark.png";
 import { SystemContext } from "../../ctx/SystemProvider";
+import { AuthContext } from "../../ctx/AuthProvider";
 import AuthButton from "./AuthButton";
-import { AuthTypes } from "../../interfaces/IAuth";
+import { AuthTypes, AuthStatus } from "../../interfaces/IAuth";
 
 interface IFormState {
     username: string;
@@ -14,6 +15,7 @@ interface IFormState {
 
 const Auth: React.FC = () => {
     const { theme } = useContext(SystemContext);
+    const { authStatus, setAuthStatus } = useContext(AuthContext);
     const [authType, setAuthType] = useState<string | null>(null);
     const [formState, setFormState] = useState<IFormState>({
         username: "",
@@ -22,6 +24,10 @@ const Auth: React.FC = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const { name, value } = e.target;
+        if (formState.username.length > 0 && formState.password.length > 0) {
+            setAuthStatus &&
+                setAuthStatus({ type: AuthStatus.READY, errMsg: null });
+        }
         setFormState(prev => ({
             ...prev,
             [name]: value,
@@ -38,7 +44,10 @@ const Auth: React.FC = () => {
     return (
         <>
             <Container>
-                <AuthContainer theme={theme} authType={authType}>
+                <AuthContainer
+                    theme={theme}
+                    authType={authType}
+                    authStatus={authStatus}>
                     <h1>
                         Because you totally asked for another note taking app.
                     </h1>
@@ -47,14 +56,22 @@ const Auth: React.FC = () => {
                             <input
                                 name='username'
                                 type='text'
-                                placeholder='Username'
+                                placeholder={
+                                    authStatus?.errMsg === "Fields Required"
+                                        ? "Required"
+                                        : "Username"
+                                }
                                 value={formState.username}
                                 onChange={handleChange}
                             />
                             <input
                                 name='password'
                                 type='password'
-                                placeholder='Password'
+                                placeholder={
+                                    authStatus?.errMsg === "Fields Required"
+                                        ? "Required"
+                                        : "Password"
+                                }
                                 value={formState.password}
                                 onChange={handleChange}
                             />

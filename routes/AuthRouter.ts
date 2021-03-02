@@ -6,8 +6,8 @@ AuthRouter.route("/")
         res.send("Hey silly billy");
     })
     .post((req, res) => {
-        console.log(req);
-        res.send(req.body);
+        const { username, password } = req.body;
+        res.send(`${username} && ${password}`);
     });
 
 module.exports = AuthRouter;

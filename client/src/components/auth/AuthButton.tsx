@@ -1,17 +1,27 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../ctx/AuthProvider";
 import { AuthTypes, AuthStatus } from "../../interfaces/IAuth";
-import Img from "../../images/ZZ5H.gif";
+import loadingGif from "../../images/ZZ5H.gif";
 
 const AuthButton: React.FC<{
     authType: string;
     formState: { username: string; password: string };
 }> = ({ authType, formState: { username, password } }) => {
-    const { signIn, authStatus } = useContext(AuthContext);
+    const { signIn, authStatus, setAuthStatus } = useContext(AuthContext);
     const [text, setText] = useState<string | null>(null);
 
+    const handleSubmit = (): void => {
+        username !== "" && password !== ""
+            ? signIn && signIn(username, password)
+            : setAuthStatus &&
+              setAuthStatus({
+                  type: AuthStatus.FAILED,
+                  errMsg: "Fields Required",
+              });
+    };
+
     useEffect(() => {
-        switch (authStatus) {
+        switch (authStatus?.type) {
             case AuthStatus.READY:
                 setText(authType === AuthTypes.LOGIN ? "Log in" : "Sign up");
                 break;
@@ -21,22 +31,18 @@ const AuthButton: React.FC<{
                 );
                 break;
             case AuthStatus.FAILED:
-                setText("Error");
+                setText(authStatus.errMsg);
                 break;
         }
     }, [authType, authStatus]);
 
     return (
-        <button onClick={() => signIn && signIn(username, password)}>
+        <button onClick={handleSubmit}>
             <p>{text}</p>
-            {authStatus !== AuthStatus.LOADING ? (
-                <i className='material-icons'>
-                    {authStatus === AuthStatus.FAILED
-                        ? "clear"
-                        : "arrow_forward"}
-                </i>
+            {authStatus?.type !== AuthStatus.LOADING ? (
+                <i className='material-icons'>{authStatus?.type}</i>
             ) : (
-                <img src={Img} alt='loading' width={20} />
+                <img src={loadingGif} alt='loading' width={20} />
             )}
         </button>
     );

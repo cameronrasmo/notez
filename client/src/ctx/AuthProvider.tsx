@@ -10,17 +10,25 @@ export const AuthProvider: React.FC = ({ children }) => {
         user: {},
         token: {},
     });
-    const [authStatus, setAuthStatus] = useState<AuthStatus>(AuthStatus.READY);
+    const [authStatus, setAuthStatus] = useState<{
+        type: AuthStatus;
+        errMsg: string | null;
+    }>({
+        type: AuthStatus.READY,
+        errMsg: null,
+    });
 
     const signIn = (username: string = "", password: string = "") => {
-        setAuthStatus(AuthStatus.LOADING);
+        setAuthStatus(prev => ({ ...prev, type: AuthStatus.LOADING }));
         axios
             .post("http://localhost:8080/auth", { username, password })
             .then(res => {
                 alert(res.data);
-                setAuthStatus(AuthStatus.READY);
+                setAuthStatus(prev => ({ ...prev, type: AuthStatus.READY }));
             })
-            .catch(err => setAuthStatus(AuthStatus.FAILED));
+            .catch(err => {
+                setAuthStatus({ type: AuthStatus.FAILED, errMsg: err.message });
+            });
     };
 
     return (
@@ -30,6 +38,7 @@ export const AuthProvider: React.FC = ({ children }) => {
                 setUserState,
                 signIn,
                 authStatus,
+                setAuthStatus,
             }}>
             {children}
         </AuthContext.Provider>
