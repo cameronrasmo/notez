@@ -1,13 +1,20 @@
-const AuthExpress = require("express");
-const AuthRouter = AuthExpress.Router();
+const authExpress = require("express");
+const authRouter = authExpress.Router();
+const User = require("../models/user.ts");
 
-AuthRouter.route("/")
+authRouter
+    .route("/")
     .get((req, res) => {
         res.send("Hey silly billy");
     })
     .post((req, res) => {
-        const { username, password } = req.body;
-        res.send(`${username} && ${password}`);
+        const newUser = new User(req.body);
+        newUser.save((err, saved) => {
+            if (err) {
+                return;
+            }
+            res.send(newUser);
+        });
     });
 
-module.exports = AuthRouter;
+module.exports = authRouter;
