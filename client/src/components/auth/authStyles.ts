@@ -56,28 +56,29 @@ export const Image = styled.img`
 
 export const Container = styled.div`
     flex: 1;
+    width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     flex-direction: column;
-    padding: 0px 30px;
+    padding: 0px 40px;
+
+    @media (max-width: 1000px) {
+        padding: 0px 30px;
+    }
 `;
 
 export const AuthContainer = styled(Container)`
-    div {
-        flex-direction: row;
-        width: 100%;
-    }
-
     h1 {
         position: relative;
+        margin-right: auto;
         left: 0px;
         opacity: 0;
-        animation: 1s ${introAnimation} forwards;
-        animation-delay: 0.3s;
+        animation: 0.6s ${introAnimation} forwards;
         animation-timing-function: cubic-bezier(0, 0, 0.1, 1);
+        animation-delay: 0.1s;
     }
 
     input {
@@ -95,8 +96,7 @@ export const AuthContainer = styled(Container)`
 
         margin: 10px 0px;
         padding: 5px 0px;
-        width: 35%;
-        margin-right: 10px;
+        margin-right: 20px;
         outline: none;
         opacity: 0;
         left: 0px;
@@ -109,16 +109,8 @@ export const AuthContainer = styled(Container)`
         transition: 0.2s;
 
         animation: 0.6s ${introAnimation} forwards;
-
         animation-timing-function: cubic-bezier(0, 0, 0.1, 1);
-
-        &:nth-child(1) {
-            animation-delay: 0.2s;
-        }
-
-        &:nth-child(2) {
-            animation-delay: 0.1s;
-        }
+        animation-delay: 0.2s;
 
         &:focus {
             border-bottom: 2px solid ${Colors.white};
@@ -130,13 +122,13 @@ export const AuthContainer = styled(Container)`
     }
 
     button {
-        margin-left: auto;
-        min-width: 75px;
-        flex: 1;
+        margin: 5px 0px;
+        margin-right: 20px;
+
+        /* flex: 1; */
         display: flex;
         align-items: center;
         justify-content: flex-end;
-
         background-color: transparent;
         outline: none;
         border: none;
@@ -149,8 +141,8 @@ export const AuthContainer = styled(Container)`
         cursor: pointer;
 
         opacity: 0;
-        left: 0px;
         position: relative;
+        left: 0px;
 
         font-size: 15px;
 
@@ -158,6 +150,7 @@ export const AuthContainer = styled(Container)`
 
         animation: 0.6s ${introAnimation} forwards;
         animation-timing-function: cubic-bezier(0, 0, 0.1, 1);
+        animation-delay: 0.3s;
 
         &:nth-child(1) {
             animation-delay: ${(props: StyledProps) =>
@@ -205,11 +198,15 @@ export const AuthContainer = styled(Container)`
         div {
             flex-direction: column;
         }
+        h1 {
+            font-size: 1.5em;
+        }
         button {
-            margin: 10px 0px;
-            margin-left: auto;
+            margin-right: auto;
+            font-size: 18px;
         }
         input {
+            font-size: 18px;
             width: 100%;
             margin-right: 0px;
         }

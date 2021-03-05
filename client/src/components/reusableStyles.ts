@@ -4,8 +4,9 @@ export const FlexRow = styled.div`
     position: relative;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
+    width: 100%;
 `;
 
 export const FlexCol = styled(FlexRow)`

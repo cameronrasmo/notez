@@ -31,8 +31,11 @@ export const AuthProvider: React.FC = ({ children }) => {
                 setAuthStatus(prev => ({ ...prev, type: AuthStatus.READY }));
             })
             .catch(err => {
-                console.log(err);
-                setAuthStatus({ type: AuthStatus.FAILED, errMsg: err.message });
+                console.dir(err);
+                setAuthStatus({
+                    type: AuthStatus.FAILED,
+                    errMsg: err.response.data.errMsg,
+                });
             });
     };
 

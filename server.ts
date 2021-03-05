@@ -27,7 +27,7 @@ mongoose.connect(
 app.use("/auth", require("./routes/authRouter.ts"));
 
 app.use((err, req, res, next) => {
-    console.log(err);
+    console.log(err.message);
     res.send({ errMsg: err.message });
 });
 

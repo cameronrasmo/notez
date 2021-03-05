@@ -10,7 +10,6 @@ authRouter.route("/signup").post((req, res, next) => {
             res.status(500);
             return next(err);
         }
-
         if (found) {
             res.status(403);
             return next(new Error("Username already exists"));
@@ -28,5 +27,7 @@ authRouter.route("/signup").post((req, res, next) => {
         });
     });
 });
+
+authRouter.route("/login").post((req, res, next) => {});
 
 module.exports = authRouter;

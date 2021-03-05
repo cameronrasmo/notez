@@ -48,51 +48,66 @@ const Auth: React.FC = () => {
                     theme={theme}
                     authType={authType}
                     authStatus={authStatus}>
-                    <h1>
-                        Because you totally asked for another note taking app.
-                    </h1>
                     {authType ? (
-                        <FlexRow style={{ display: "flex" }}>
-                            <input
-                                name='username'
-                                type='text'
-                                placeholder={
-                                    authStatus?.errMsg === "Fields Required"
-                                        ? "Required"
-                                        : "Username"
-                                }
-                                value={formState.username}
-                                onChange={handleChange}
-                            />
-                            <input
-                                name='password'
-                                type='password'
-                                placeholder={
-                                    authStatus?.errMsg === "Fields Required"
-                                        ? "Required"
-                                        : "Password"
-                                }
-                                value={formState.password}
-                                onChange={handleChange}
-                            />
-                            <AuthButton
-                                authType={authType}
-                                formState={formState}
-                            />
-                        </FlexRow>
+                        <>
+                            <h1>
+                                {authType === "login"
+                                    ? "Welcome back friend."
+                                    : "Welcome to THE definitive note taking experience."}
+                            </h1>
+                            <FlexRow>
+                                <input
+                                    name='username'
+                                    type='text'
+                                    placeholder={
+                                        authStatus?.errMsg === "Fields Required"
+                                            ? "Required"
+                                            : "Username"
+                                    }
+                                    value={formState.username}
+                                    onChange={handleChange}
+                                />
+                                <input
+                                    name='password'
+                                    type='password'
+                                    placeholder={
+                                        authStatus?.errMsg === "Fields Required"
+                                            ? "Required"
+                                            : "Password"
+                                    }
+                                    value={formState.password}
+                                    onChange={handleChange}
+                                />
+                            </FlexRow>
+                            <FlexRow
+                                style={{
+                                    minHeight: "30px",
+                                }}>
+                                <AuthButton
+                                    authType={authType}
+                                    formState={formState}
+                                />
+                            </FlexRow>
+                        </>
                     ) : (
-                        <FlexRow
-                            style={{
-                                margin: "10px 0px",
-                                padding: "5px 0px",
-                            }}>
-                            <button name={AuthTypes.LOGIN} onClick={setAuth}>
-                                Log in
-                            </button>
-                            <button name={AuthTypes.SIGNUP} onClick={setAuth}>
-                                Sign up
-                            </button>
-                        </FlexRow>
+                        <div style={{ width: "100%" }}>
+                            <h1 style={{ animationDelay: "0.3s" }}>
+                                Because you totally asked for another note
+                                taking app.
+                            </h1>
+                            <FlexRow style={{ marginTop: "5px" }}>
+                                <button
+                                    name={AuthTypes.LOGIN}
+                                    onClick={setAuth}>
+                                    Log in
+                                </button>
+                                <button
+                                    name={AuthTypes.SIGNUP}
+                                    onClick={setAuth}>
+                                    Sign up
+                                </button>
+                            </FlexRow>
+                        </div>
                     )}
                 </AuthContainer>
             </Container>
