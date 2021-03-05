@@ -19,7 +19,11 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/notezDB",
 }, function () {
     console.log("Connected to MongoDB");
 });
-app.use("/auth", require("./routes/authRouter.ts"));
+app.use("/auth", require("./routes/authRouter.js"));
+app.use(function (err, req, res, next) {
+    console.log(err);
+    res.send({ errMsg: err.message });
+});
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });

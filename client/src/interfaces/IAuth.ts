@@ -1,10 +1,9 @@
 import React from "react";
 
-// AuthContextValue
 export interface IAuthCtxValue {
     userState: IAuthUser;
     setUserState: React.Dispatch<React.SetStateAction<IAuthUser>>;
-    signIn: (un: string, pw: string) => void;
+    authenticate: (un: string, pw: string, type: string) => void;
     loading: boolean;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
     authStatus: { type: AuthStatus; errMsg: string | null };
@@ -12,12 +11,12 @@ export interface IAuthCtxValue {
         React.SetStateAction<{ type: AuthStatus; errMsg: string | null }>
     >;
 }
-// AuthUser
+
 export interface IAuthUser {
     user: object;
     token: object;
 }
-// Sign up AuthTypes
+
 export enum AuthTypes {
     SIGNUP = "signup",
     LOGIN = "login",

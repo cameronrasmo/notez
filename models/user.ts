@@ -12,6 +12,10 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    regDate: {
+        type: Date,
+        default: Date.now(),
+    },
 });
 
 module.exports = userSchemaMongoose.model("User", userSchema);

@@ -7,12 +7,12 @@ const AuthButton: React.FC<{
     authType: string;
     formState: { username: string; password: string };
 }> = ({ authType, formState: { username, password } }) => {
-    const { signIn, authStatus, setAuthStatus } = useContext(AuthContext);
+    const { authenticate, authStatus, setAuthStatus } = useContext(AuthContext);
     const [text, setText] = useState<string | null>(null);
 
     const handleSubmit = (): void => {
         username !== "" && password !== ""
-            ? signIn && signIn(username, password)
+            ? authenticate && authenticate(username, password, authType)
             : setAuthStatus &&
               setAuthStatus({
                   type: AuthStatus.FAILED,

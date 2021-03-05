@@ -6,7 +6,6 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const path = require("path");
 const port = process.env.PORT || 8080;
-const secret = process.env.SECRET || "silly billy fo philly";
 
 app.use(express.json());
 app.use(morgan("dev"));
@@ -26,6 +25,11 @@ mongoose.connect(
 );
 
 app.use("/auth", require("./routes/authRouter.ts"));
+
+app.use((err, req, res, next) => {
+    console.log(err);
+    res.send({ errMsg: err.message });
+});
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
