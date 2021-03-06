@@ -13,8 +13,8 @@ export interface IAuthCtxValue {
 }
 
 export interface IAuthUser {
-    user: object;
-    token: object;
+    user: string | null;
+    token: string | null;
 }
 
 export enum AuthTypes {

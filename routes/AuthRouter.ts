@@ -28,6 +28,18 @@ authRouter.route("/signup").post((req, res, next) => {
     });
 });
 
-authRouter.route("/login").post((req, res, next) => {});
+authRouter.route("/login").post((req, res, next) => {
+    User.findOne(
+        { username: req.body.username.toLowerCase() },
+        (err, found) => {
+            if (!found || req.body.password !== found.password.toLowerCase()) {
+                res.status(403);
+                return next(new Error("Username or Password is incorrect"));
+            }
+            const token = jwt.sign(found.toObject(), process.env.SECRET);
+            res.status(200).send({ token, user: found });
+        }
+    );
+});
 
 module.exports = authRouter;
